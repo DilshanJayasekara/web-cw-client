@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-class Product extends Component{
+class AdminProduct extends Component{
     state = {};
     render() {
       return (
@@ -10,10 +10,10 @@ class Product extends Component{
             <h5 className="card-title">{this.props.item.name}</h5>
             <p className="card-text">This is the description</p>
             <button className="btn btn-outline-dark">
-              Add to Cart
+              Remove
             </button>
             <button className="btn btn-outline-dark">
-              Details
+              Update
             </button>
           </div>
         </div>
@@ -21,4 +21,4 @@ class Product extends Component{
     }
 }
 
-export default Product;
+export default AdminProduct;
