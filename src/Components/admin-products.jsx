@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import Item from "./item";
+import Item from "./admin-product";
 
-class Products extends Component {
+class AdminProduts extends Component {
   state = {
     allProduct: [{id: 1,
     name : "this is shirt 01"},
@@ -32,4 +32,4 @@ class Products extends Component {
 
 }
 
-export default Products;
+export default AdminProduts;
