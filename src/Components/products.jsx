@@ -29,7 +29,18 @@ class Products extends Component {
       </div>
     );
   }
+  async UpdateProduct(id) {
+    localStorage.setItem("productId", id);
+    this.props.history.push("/add-update");
+  }
 
+  async deleteProduct(id) {
+    await axios.delete(`api/products/${id}`);
+    let updatedProducts = this.state.allProduct.filter(
+      (product) => product.productId !== id
+    );
+    this.setState({ allProduct: updatedProducts });
+  }
 }
 
 export default Products;
