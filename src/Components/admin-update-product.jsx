@@ -34,7 +34,6 @@ class AdminUpdateProduct extends Component {
       .catch((error) => {
         alert(error);
       });
-    
   }
   render() {
     return (
@@ -173,7 +172,6 @@ class AdminUpdateProduct extends Component {
       alert("Product Update Successfully..!");
     }
   }
-
 }
 
 export default AdminUpdateProduct;

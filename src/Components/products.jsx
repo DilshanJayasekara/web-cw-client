@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
 import Product from "./product";
-import { Redirect } from "react-router-dom";
 class Products extends Component {
   state = {
     allProduct: [],
@@ -60,7 +59,7 @@ class Products extends Component {
         console.log("Error!", "An Error Occured!", "error");
       });
   }
-  
+
   async UpdateProduct(id) {
     localStorage.setItem("productId", id);
     this.props.history.push("/add-update");
@@ -74,5 +73,4 @@ class Products extends Component {
     this.setState({ allProduct: updatedProducts });
   }
 }
-
 export default Products;

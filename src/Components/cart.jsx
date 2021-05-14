@@ -2,7 +2,10 @@ import React, { Component } from "react";
 import CartRow from "./cart-row";
 import axios from "axios";
 class Cart extends Component {
-  state = {};
+  state = {
+    total: 0,
+    allitems: [],
+  };
   render() {
     return (
       <div class="col d-flex justify-content-center">
@@ -46,16 +49,27 @@ class Cart extends Component {
               </p>
             </div>
           </form>
-          <button className="btn btn-outline-danger">Change</button>
           <br></br>
-          <button className="btn btn-outline-success">Pay</button>
+          <div>
+            <button
+              className="btn btn-outline-success"
+              onClick={() => {
+                this.props.history.push("/change-shipping");
+              }}
+            >
+              Check Out
+            </button>
+          </div>
           <br></br>
-          <button className="btn btn-outline-dark">Back</button>
         </div>
       </div>
     );
   }
-
+  async handleSubmit(event) {
+    event.preventDefault();
+    const user = localStorage.getItem("userId");
+    this.props.history.push("/change-shipping");
+  }
   async componentDidMount() {
     const id = localStorage.getItem("userId");
     const { data } = await axios.get(`api/carts/items/${id}`);
@@ -74,14 +88,13 @@ class Cart extends Component {
     });
     this.setState({ allitems: items });
     this.setState({ total: tot });
+    localStorage.setItem("total", tot);
   }
-  
+
   async deleteItem(id) {
     const user = localStorage.getItem("userId");
     await axios.post(`api/carts/${id}/${user}`);
-    let updateditem = this.state.allitems.filter(
-      (item) => item.id !== id
-    );
+    let updateditem = this.state.allitems.filter((item) => item.id !== id);
     this.setState({ allitems: updateditem });
     window.location.reload(false);
   }
