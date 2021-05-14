@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-
+import CartRow from "./cart-row";
+import axios from "axios";
 class Cart extends Component {
   state = {};
   render() {
@@ -53,6 +54,26 @@ class Cart extends Component {
         </div>
       </div>
     );
+  }
+
+  async componentDidMount() {
+    const id = localStorage.getItem("userId");
+    const { data } = await axios.get(`api/carts/items/${id}`);
+    let tot = 0;
+    let items = data.map((item) => {
+      tot = tot + item.price;
+      return {
+        id: item._id,
+        productId: item.productId,
+        qty: item.qty,
+        price: item.price,
+        title: item.title,
+        productCode: item.productCode,
+        imagePath: item.imagePath,
+      };
+    });
+    this.setState({ allitems: items });
+    this.setState({ total: tot });
   }
   
   async deleteItem(id) {
