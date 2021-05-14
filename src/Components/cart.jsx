@@ -16,36 +16,23 @@ class Cart extends Component {
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <th scope="row">
-                  <img
-                    className="img-fluid"
-                    style={{ width: "5rem" }}
-                    src="https://i.imgur.com/1GrakTl.jpg"
-                  />
-                </th>
-                <td>Shirt</td>
-                <td>
-                  <a href="#">-</a>
-                  <a href="#" class="border">
-                    1
-                  </a>
-                  <a href="#">+</a>
-                </td>
-                <td>
-                  &euro; 44.00 <span className="close"></span>
-                </td>
-              </tr>
+              {this.state.allitems.map((item) => (
+                <CartRow
+                  key={item.id}
+                  item={item}
+                  onDelete={() => this.deleteItem(item.id)}
+                />
+              ))}
             </tbody>
           </table>
           <form className="text">
-          <div className="row mb-3">
+            <div className="row mb-3">
               <label for="input" class="col-sm-3 col-form-label">
                 Total Amount :-
               </label>
               <div className="col text-right"></div>
               <p for="input" class="col-sm-2 col-form-label">
-              &euro; 132.00
+                &euro; {this.state.total}
               </p>
             </div>
             <div className="row mb-3">
@@ -66,6 +53,16 @@ class Cart extends Component {
         </div>
       </div>
     );
+  }
+  
+  async deleteItem(id) {
+    const user = localStorage.getItem("userId");
+    await axios.post(`api/carts/${id}/${user}`);
+    let updateditem = this.state.allitems.filter(
+      (item) => item.id !== id
+    );
+    this.setState({ allitems: updateditem });
+    window.location.reload(false);
   }
 }
 
