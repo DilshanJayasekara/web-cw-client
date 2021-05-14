@@ -39,7 +39,6 @@ class Product extends Component {
             >
               Add to Cart
             </button>
-            <button className="btn btn-outline-dark">Details</button>
           </div>
         </div>
       );

@@ -57,6 +57,7 @@ class Products extends Component {
       })
       .catch((error) => {
         console.log("Error!", "An Error Occured!", "error");
+        alert("something is wrong");
       });
   }
 

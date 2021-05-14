@@ -158,19 +158,28 @@ class AdminUpdateProduct extends Component {
   async handleSubmit(event) {
     event.preventDefault();
     const id = localStorage.getItem("productId");
-    const { data } = await axios.put(`api/products/${id}`, {
-      productCode: this.state.productCode,
-      title: this.state.title,
-      description: this.state.description,
-      price: this.state.price,
-      category: this.state.category,
-      manufacturer: this.state.manufacturer,
-      imagePath: this.state.imagePath,
-      available: this.state.available,
-    });
-    if (data) {
-      alert("Product Update Successfully..!");
+    try {
+      const { data } = await axios
+        .put(`api/products/${id}`, {
+          productCode: this.state.productCode,
+          title: this.state.title,
+          description: this.state.description,
+          price: this.state.price,
+          category: this.state.category,
+          manufacturer: this.state.manufacturer,
+          imagePath: this.state.imagePath,
+          available: this.state.available,
+        })
+        .catch((error) => {
+          alert("Please fill all the fiels..!");
+        });
+      if (data) {
+        alert("Product Update Successfully..!");
+      }
+    } catch {
+      alert("Something went wrong..!");
     }
+    
   }
 }
 

@@ -36,16 +36,7 @@ class Cart extends Component {
               </label>
               <div className="col text-right"></div>
               <p for="input" class="col-sm-2 col-form-label">
-                &euro; {this.state.total}
-              </p>
-            </div>
-            <div className="row mb-3">
-              <label for="input" class="col-sm-2 col-form-label">
-                Shipping to
-              </label>
-              <div className="col text-right"></div>
-              <p for="input" class="col-sm-2 col-form-label">
-                Shipping details of the user
+                Rs. {this.state.total}
               </p>
             </div>
           </form>

@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import axios from "axios";
-import { Redirect } from "react-router-dom";
 import GoogleLogin from "react-google-login";
 
 const responseSuccessGoogle = async (response) => {
@@ -25,6 +24,7 @@ const responseErrorGoogle = (response) => {
   console.log(response);
 };
 class SignIn extends Component {
+  
   constructor(props) {
     super(props);
     this.state = {
@@ -98,22 +98,28 @@ class SignIn extends Component {
 
   async handleSubmit(event) {
     event.preventDefault();
-    await axios
-      .post(`api/auth`, {
-        email: this.state.email,
-        password: this.state.password,
-      })
-      .then((response) => {
-        localStorage.setItem("token", response.data.token);
-        localStorage.setItem("isAdmin", response.data.isAdmin);
-        localStorage.setItem("userId", response.data.id);
-        localStorage.setItem("login", true);
-        this.props.history.push("/");
-      })
-      .catch((error) => {
-        localStorage.setItem("isAdmin", false);
-        console.log("Error!", "An Error Occured!");
-      });
+    try {
+      await axios
+        .post(`api/auth`, {
+          email: this.state.email,
+          password: this.state.password,
+        })
+        .then((response) => {
+          localStorage.setItem("token", response.data.token);
+          localStorage.setItem("isAdmin", response.data.isAdmin);
+          localStorage.setItem("userId", response.data.id);
+          localStorage.setItem("login", true);
+          this.props.history.push("/");
+        })
+        .catch((error) => {
+          localStorage.setItem("isAdmin", false);
+          console.log("Error!", "An Error Occured!");
+          alert("Please check the email & password");
+        });
+    }
+    catch {
+         alert("Something went wrong : Please check the details");
+    }
   }
 }
 

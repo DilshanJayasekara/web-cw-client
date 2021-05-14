@@ -1,7 +1,29 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import GoogleLogin from "react-google-login";
 
+const responseSuccessGoogle = async (response) => {
+  console.log(response);
+  await axios
+    .post(`api/users/google`, {
+      token: response.tokenId,
+    })
+    .then((response) => {
+      localStorage.setItem("token", response.data.token);
+      localStorage.setItem("isAdmin", response.data.isAdmin);
+      localStorage.setItem("userId", response.data.id);
+      localStorage.setItem("login", true);
+    })
+    .catch((error) => {
+      localStorage.setItem("isAdmin", false);
+      console.log("Error!", "An Error Occured!");
+    });
+};
+
+const responseErrorGoogle = (response) => {
+  console.log(response);
+};
 class SignUp extends Component {
   constructor(props) {
     super(props);
@@ -58,6 +80,17 @@ class SignUp extends Component {
               <button type="submit" className="btn btn-primary">
                 Sign Up
               </button>
+              <br />
+              <br />
+              <GoogleLogin
+                clientId="479086141536-98k9sop145i8cvd195g4r55krq5ta2j6.apps.googleusercontent.com"
+                buttonText="Login with Google"
+                onSuccess={responseSuccessGoogle}
+                onFailure={responseErrorGoogle}
+                cookiePolicy={"single_host_origin"}
+              />
+              <br />
+              <br />
             </div>
             <div className="text-center">
               <Link to="/signin" className="nav-link">
@@ -80,15 +113,20 @@ class SignUp extends Component {
 
   async handleSubmit(event) {
     event.preventDefault();
-    const { data } = await axios.post(`api/users`, {
-      username: this.state.username,
-      email: this.state.email,
-      password: this.state.password,
-    });
-    localStorage.setItem("isAdmin", false);
-    localStorage.setItem("login", true);
-    alert("Sign Up Successfully..!");
-    this.props.history.push("/");
+    try {
+      const { data } = await axios.post(`api/users`, {
+        username: this.state.username,
+        email: this.state.email,
+        password: this.state.password,
+      });
+      localStorage.setItem("isAdmin", false);
+      localStorage.setItem("login", true);
+      alert("Sign Up Successfully..!");
+      this.props.history.push("/");
+    }
+    catch {
+      alert("Please make sure to enter correct details");
+    }
   }
 }
 export default SignUp;

@@ -11,6 +11,7 @@ import Cart from "./Components/cart";
 import AdminAddProduct from "./Components/admin-add-product";
 import AdminUpdateProduct from "./Components/admin-update-product";
 import ChangeShipping from "./Components/change-shipping";
+import AboutUs from "./Components/about";
 import GooglePay from "./Components/google-pay";
 axios.defaults.baseURL = "http://localhost:5000/";
 
@@ -25,6 +26,7 @@ ReactDom.render(
     <Route exact path="/add-update" component={AdminUpdateProduct} />
     <Route exact path="/change-shipping" component={ChangeShipping} />
     <Route exact path="/google-pay" component={GooglePay} />
+    <Route exact path="/about" component={AboutUs} />
   </BrowserRouter>,
   document.getElementById("root")
 );

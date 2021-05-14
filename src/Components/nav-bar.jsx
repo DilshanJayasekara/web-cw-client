@@ -4,7 +4,7 @@ import { Redirect } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
 class NavBar extends Component {
-  state = {};
+  
   render() {
     if ("true" === localStorage.getItem("isAdmin")) {
       return (
@@ -29,9 +29,9 @@ class NavBar extends Component {
                   </Link>
                 </li>
               </ul>
-              <Link to="/signin" className="nav-link">
+              <button type="button" class="btn btn-danger" onClick = {this.logout}>
                 Sign Out
-              </Link>
+              </button>
             </div>
           </div>
         </nav>
@@ -55,7 +55,7 @@ class NavBar extends Component {
                     </Link>
                   </li>
                   <li className="nav-item">
-                    <Link to="/3" className="nav-link">
+                    <Link to="/about" className="nav-link">
                       About
                     </Link>
                   </li>
@@ -65,21 +65,9 @@ class NavBar extends Component {
                     </Link>
                   </li>
                 </ul>
-                <form className="d-flex">
-                  <select id="inputState" class="form-select">
-                    <option selected>SL Rupees</option>
-                    <option>USD</option>
-                  </select>
-                  <input
-                    className="form-control me-2"
-                    type="search"
-                    placeholder="Search"
-                    aria-label="Search"
-                  />
-                  <Link to="/signin" className="nav-link">
-                    Sign Out
-                  </Link>
-                </form>
+                <button type="button" class="btn btn-danger" onClick={this.logout}>
+                  Sign Out
+                </button>
               </div>
             </div>
           </nav>
@@ -102,7 +90,7 @@ class NavBar extends Component {
                     </Link>
                   </li>
                   <li className="nav-item">
-                    <Link to="/3" className="nav-link">
+                    <Link to="/about" className="nav-link">
                       About
                     </Link>
                   </li>
@@ -129,6 +117,13 @@ class NavBar extends Component {
       }
     }
   }
+
+  logout = () => {
+    localStorage.clear();
+    window.location.reload(false);
+}
+
+
 }
 
 export default NavBar;

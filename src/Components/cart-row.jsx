@@ -12,14 +12,12 @@ class CartRow extends Component {
         </td>
         <td>{this.props.item.title}</td>
         <td>
-          <a href="#">-</a>
           <a href="#" class="border">
             {this.props.item.qty}
           </a>
-          <a href="#">+</a>
         </td>
         <td>
-          &euro; {this.props.item.price} <span className="close"></span>
+          Rs. {this.props.item.price} <span className="close"></span>
         </td>
         <td>
           <button className="btn btn-danger" onClick={this.props.onDelete}>
